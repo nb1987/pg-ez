@@ -65,7 +65,6 @@ Querying in `pg-ez` is nearly the same as querying in `pg`: simply call the `exe
 
 #### Example 1: using `async` / `await`
 ```javascript
-// using async / await
 (async () => {
 	try {
 		const result = await db.exec('SELECT $1::VARCHAR AS first_name, $2::VARCHAR AS last_name, $3::INT AS age', ['Peter', 'Gibbons', 32]);
@@ -101,7 +100,7 @@ db.exec('SELECT $1::VARCHAR AS first_name, $2::VARCHAR AS last_name, $3::INT AS 
 <a name="streams" />
 
 ### Streams
-Big data can bring big problems. If you have a query yielding millions of rows, you probably don't want to put the query results into memory and thereby spike your memory usage. Streams to the rescue! The `stream` method returns a native promise, not a stream; however, this particular promise supports a `pipe` method, allowing you to pass data through and chain together pipes just as though you were dealing with a stream. An error thrown at any point in the pipeline will propagate and can be caught - as any promise error can be - with a `catch` method (if using promises) or a `try` / `catch` block (if using `async` / `await`). 
+Big data can bring big problems. If you have a query yielding millions of rows, you probably don't want to put the query results into memory and thereby spike your memory usage. Streams to the rescue! The `stream` method returns a native promise, not a stream; however, this particular promise supports a `pipe` method, allowing you to pass data through and chain together pipes just as though you were dealing with a stream. An error thrown at any point in the pipeline will propagate and can be caught&mdash;as any promise error can be&mdash;with a `catch` method (if using promises) or a `try` / `catch` block (if using `async` / `await`). 
 
 <a name="streams-ex1" />
 
@@ -139,6 +138,8 @@ db.stream({text: 'SELECT generate_series(0, $1, 1) x, generate_series(0, $1, 2) 
 <a name="transactions" />
 
 ### Transactions
+
+Transactions are implemented intuitively: simply wrap all your desired statements within a `transaction` "block". The `transaction` method returns a native promise, so you can do follow-up processing with `then() `, or you can use `await` if your `transaction` invocation is inside an `async` function. An error in any query within the transaction block will automatically trigger a rollback, but because `transaction` returns a promise, you can `catch` the error to perform additional error handling.
 
 <a name="transactions-ex1" />
 
