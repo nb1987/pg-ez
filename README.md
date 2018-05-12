@@ -66,12 +66,12 @@ Querying in `pg-ez` is nearly the same as querying in `pg`: simply call the `exe
 #### Example 1: using `async` / `await`
 ```javascript
 (async () => {
-	try {
-		const result = await db.exec('SELECT $1::VARCHAR AS first_name, $2::VARCHAR AS last_name, $3::INT AS age', ['Peter', 'Gibbons', 32]);
-		console.log(result.rows);
-	} catch (err) {
-		console.error('ERR: ' + err);
-	}
+  try {
+    const result = await db.exec('SELECT $1::VARCHAR AS first_name, $2::VARCHAR AS last_name, $3::INT AS age', ['Peter', 'Gibbons', 32]);
+    console.log(result.rows);
+  } catch (err) {
+    console.error('ERR: ' + err);
+  }
 })();
 ```
 <a name="querying-ex2" />
@@ -79,12 +79,12 @@ Querying in `pg-ez` is nearly the same as querying in `pg`: simply call the `exe
 #### Example 2: using promises
 ```javascript
 db.exec('SELECT $1::VARCHAR AS first_name, $2::VARCHAR AS last_name, $3::INT AS age', ['Peter', 'Gibbons', 32])
-	.then(result => {
-		console.log(result.rows);
-	})
-	.catch(err => {
-		console.error('ERR: ' + err);
-	});
+  .then(result => {
+    console.log(result.rows);
+  })
+  .catch(err => {
+    console.error('ERR: ' + err);
+  });
 ```
 
 <a name="querying-ex3" />
@@ -92,8 +92,8 @@ db.exec('SELECT $1::VARCHAR AS first_name, $2::VARCHAR AS last_name, $3::INT AS 
 #### Example 3: using callbacks
 ```javascript
 db.exec('SELECT $1::VARCHAR AS first_name, $2::VARCHAR AS last_name, $3::INT AS age', ['Peter', 'Gibbons', 32], (err, result) => {
-	if (err) console.error('ERR: ' + err);
-	else console.log(result.rows);
+  if (err) console.error('ERR: ' + err);
+  else console.log(result.rows);
 });
 ```
 
@@ -109,10 +109,10 @@ Big data can bring big problems. If you have a query yielding millions of rows, 
 const JSONStream = require('JSONStream');
 const http = require('http');
 http.createServer((req, res) => {
-	res.setHeader('Content-Type', 'application/json');
-	db.stream('SELECT generate_series(0, $1, 1) x, generate_series(0, $1, 2) y', [1000])
-		.pipe(JSONStream.stringify())
-		.pipe(res);
+  res.setHeader('Content-Type', 'application/json');
+  db.stream('SELECT generate_series(0, $1, 1) x, generate_series(0, $1, 2) y', [1000])
+    .pipe(JSONStream.stringify())
+    .pipe(res);
 }).listen(1337);
 ```
 
@@ -125,14 +125,14 @@ const fs = require('fs');
 const fileStream = fs.createWriteStream('./query-output.csv');
 
 db.stream({text: 'SELECT generate_series(0, $1, 1) x, generate_series(0, $1, 2) y', values: [1000], rowMode: 'array'})
-	.pipe(csvStream)
-	.pipe(fileStream)
-	.then(() => {
-		console.log('Streaming complete!');
-	})
-	.catch(err => {
-		console.error('ERR: ' + err);
-	});
+  .pipe(csvStream)
+  .pipe(fileStream)
+  .then(() => {
+    console.log('Streaming complete!');
+  })
+  .catch(err => {
+    console.error('ERR: ' + err);
+  });
 ```
 
 <a name="transactions" />
@@ -146,16 +146,16 @@ Transactions are implemented intuitively: simply wrap all your desired statement
 #### Example 1: Using `async` / `await`
 ```javascript
 (async () => {
-	try {
-		await db.transaction(async (client) => {
-			// NOTE: It's important that you execute queries against the client passed in as the lone argument to this callback function
-			await client.exec('CREATE TEMP TABLE pg_ez_test_transaction (id SERIAL, first_name VARCHAR(255), last_name VARCHAR(255))');
-			await client.exec('INSERT INTO pg_ez_test_transaction (first_name, last_name)  VALUES ($1, $2)', ['Michael', 'Bolton']);
-		});
-		console.log('Done!');
-	} catch (err) {
-		console.error('ERR: ' + err);
-	}
+  try {
+    await db.transaction(async (client) => {
+      // NOTE: It's important that you execute queries against the client passed in as the lone argument to this callback function
+      await client.exec('CREATE TEMP TABLE pg_ez_test_transaction (id SERIAL, first_name VARCHAR(255), last_name VARCHAR(255))');
+      await client.exec('INSERT INTO pg_ez_test_transaction (first_name, last_name)  VALUES ($1, $2)', ['Michael', 'Bolton']);
+    });
+    console.log('Done!');
+  } catch (err) {
+    console.error('ERR: ' + err);
+  }
 })();
 ```
 
@@ -164,14 +164,14 @@ Transactions are implemented intuitively: simply wrap all your desired statement
 #### Example 2: Using promises
 ```javascript
 db.transaction(async (client) => {
-	// NOTE: It's important that you execute queries against the client passed in as the lone argument to this callback function
-	await client.exec('CREATE TEMP TABLE pg_ez_test_transaction (id SERIAL, first_name VARCHAR(255), last_name VARCHAR(255))');
-	await client.exec('INSERT INTO pg_ez_test_transaction (first_name, last_name)  VALUES ($1, $2)', ['Michael', 'Bolton']);
+  // NOTE: It's important that you execute queries against the client passed in as the lone argument to this callback function
+  await client.exec('CREATE TEMP TABLE pg_ez_test_transaction (id SERIAL, first_name VARCHAR(255), last_name VARCHAR(255))');
+  await client.exec('INSERT INTO pg_ez_test_transaction (first_name, last_name)  VALUES ($1, $2)', ['Michael', 'Bolton']);
 })
 .then(function() {
-	console.log('Done!');
+  console.log('Done!');
 })
 .catch(function(err) {
-	console.error('ERR: ' + err);
+  console.error('ERR: ' + err);
 });
 ```
