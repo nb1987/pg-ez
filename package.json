@@ -1,0 +1,44 @@
+{
+  "name": "pg-ez",
+  "version": "1.0.0",
+  "description": "Library for simplifying and enhancing the node-postgres (pg) API",
+  "main": "index.js",
+  "directories": {
+    "tests": "./tests"
+  },
+  "dependencies": {
+    "pg": "^7.4.1",
+    "pg-query-stream": "^1.1.1"
+  },
+  "devDependencies": {
+    "tape": "^4.9.0",
+    "tape-promise": "^3.0.0"
+  },
+  "scripts": {
+    "test": "./node_modules/.bin/tape ./tests/test-*.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nb1987/pg-ez.git"
+  },
+  "keywords": [
+    "node-postgres",
+    "pg",
+    "postgresql",
+	"postgres",
+	"database",
+	"rdbms"
+  ],
+  "env": {
+    "node": true
+  },
+  "author": "Nick Bagnall",
+  "license": "MIT",
+  "engines": {
+    "node": ">= 4.5.0"
+  },
+  "bugs": {
+    "url": "https://github.com/nb1987/pg-ez/issues"
+  },
+  "homepage": "https://github.com/nb1987/pg-ez#readme"
+}
