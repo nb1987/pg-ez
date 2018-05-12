@@ -120,7 +120,7 @@ http.createServer((req, res) => {
 
 #### Example 2: stream comma-delimited transform of results to CSV file
 ```javascript
-const csvStream =  require('csv-write-stream')({headers: ['x', 'y']});
+const csvStream = require('csv-write-stream')({headers: ['x', 'y']});
 const fs = require('fs');
 const fileStream = fs.createWriteStream('./query-output.csv');
 
