@@ -10,7 +10,7 @@
 
 `npm test`
 
-The tests test `pg-ez`'s integration with `node-postgres` but run quickly. The tests require you to have defined environment variables for  `PGUSER`, `PGPASSWORD`, `PGHOST`, `PGPORT`, and `PGDATABASE`.
+The tests test `pg-ez`'s integration with `node-postgres` but run quickly. The tests require you to have defined environment variables for `PGUSER`, `PGPASSWORD`, `PGHOST`, `PGPORT`, and `PGDATABASE`.
 
 ## Documentation
 
@@ -139,7 +139,7 @@ db.stream({text: 'SELECT generate_series(0, $1, 1) x, generate_series(0, $1, 2) 
 
 ### Transactions
 
-Transactions are implemented intuitively: simply wrap all your desired statements within a `transaction` "block". The `transaction` method returns a native promise, so you can do follow-up processing with `then() `, or you can use `await` if your `transaction` invocation is inside an `async` function. An error in any query within the transaction block will automatically trigger a rollback, but because `transaction` returns a promise, you can `catch` the error to perform additional error handling.
+Transactions are implemented intuitively: simply wrap all your desired statements within a `transaction` "block." The `transaction` method returns a native promise, so you can do follow-up processing with `then() `, or you can use `await` if your `transaction` invocation is inside an `async` function. An error in any query within the transaction block will automatically trigger a rollback, but because `transaction` returns a promise, you can `catch` the error to perform additional error handling.
 
 <a name="transactions-ex1" />
 
