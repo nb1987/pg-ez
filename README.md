@@ -30,6 +30,7 @@ The tests test `pg-ez`'s integration with `node-postgres` but run quickly. The t
   * Example 2: Using promises
 
 <a name="h1" />
+
 ### Establishing a database connection
 Requiring `pg-ez` and establishing a database connection is done in a single line. Like `pg`, you can pass to it a connection string or a connection object; if you pass neither, `pg-ez` will, like `pg`, try to establish a connection using environment variables.
 
@@ -50,6 +51,7 @@ const db = require('pg-ez')();
 ```
 
 <a name="h2" />
+
 ### Queries
 Querying in `pg-ez` is nearly the same as querying in `pg`: simply call the `exec` method and pass to it a query string and parameters, or pass to it a query configuration object. Like `pg`, `pg-ez` supports 3 flavors of asynchronous querying: `async` / `await`, promises, and callbacks. 
 
@@ -86,6 +88,7 @@ db.exec('SELECT $1::VARCHAR AS first_name, $2::VARCHAR AS last_name, $3::INT AS 
 ```
 
 <a name="h3" />
+
 ### Streams
 Big data can bring big problems. If you have a query yielding millions of rows, you probably don't want to put the query results into memory and thereby spike your memory usage. Streams to the rescue! The `stream` method returns a native promise, not a stream; however, this particular promise supports a `pipe` method, allowing you to pass data through and chain together pipes just as though you were dealing with a stream. An error thrown at any point in the pipeline will propagate and can be caught - as any promise error can be - with a `catch` method (if using promises) or a `try` / `catch` block (if using `async` / `await`). 
 
@@ -119,6 +122,7 @@ db.stream({text: 'SELECT generate_series(0, $1, 1) x, generate_series(0, $1, 2) 
 ```
 
 <a name="h4" />
+
 ### Transactions
 
 #### Example 1: Using `async` / `await`
