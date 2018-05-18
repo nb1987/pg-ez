@@ -1,6 +1,6 @@
 {
   "name": "pg-ez",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Library for simplifying and enhancing the node-postgres (pg) API",
   "main": "index.js",
   "directories": {
@@ -25,9 +25,9 @@
     "node-postgres",
     "pg",
     "postgresql",
-	"postgres",
-	"database",
-	"rdbms"
+    "postgres",
+    "database",
+    "rdbms"
   ],
   "env": {
     "node": true

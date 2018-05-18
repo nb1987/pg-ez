@@ -1,4 +1,4 @@
-const db = require('../index.js')('postgresql://postgres:Munoknam123$@localhost:5432/mydb');
+const db = require('../index.js')();
 const { Writable, Transform } = require('stream');
 const tape = require('tape');
 const _test = require('tape-promise').default;
